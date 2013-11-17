@@ -75,6 +75,7 @@ public class MyVaadinUI extends UI {
         horizontalLayout.addComponent(newContact);
         search.addClickListener(searchButtonListener);
         horizontalLayout.addComponent(search);
+        share.addClickListener(shareButtonListener);
         horizontalLayout.addComponent(share);
         horizontalLayout.addComponent(help);
 
@@ -133,6 +134,21 @@ public class MyVaadinUI extends UI {
 
         private void showSearchView() {
             setMainComponent(getSearchView());
+        }
+    };
+
+    Button.ClickListener shareButtonListener = new Button.ClickListener() {
+
+        @Override
+        public void buttonClick(Button.ClickEvent event) {
+            final Button source = event.getButton();
+            if (source == share) {
+                showSharingOptions();
+            }
+        }
+
+        private void showSharingOptions() {
+            addWindow(getSharingOptions());
         }
     };
 }
