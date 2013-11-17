@@ -3,6 +3,7 @@ package ui;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
 /**
@@ -13,6 +14,9 @@ import com.vaadin.ui.Window;
 public class SharingOptions extends Window {
 
     public SharingOptions() {
+        super("Sharing Options");
+        center();
+
         // make this window modal, which will disable all other components while
         // it's visible
         setModal(true);
@@ -20,16 +24,15 @@ public class SharingOptions extends Window {
         // make the sub window 50% the size of the browser window
         setWidth("50%");
 
-        // center the window both horizontally and vertically in the browser window
-        center();
+        VerticalLayout verticalLayout = new VerticalLayout();
 
-        setCaption("Sharing options");
-        setContent(new Label("With these settings you can modify contact sharing " +
+        verticalLayout.addComponent(new Label("With these settings you can modify contact sharing " +
                 "options. (non-functional, example of modal dialog)"));
-        setContent(new CheckBox("Gmail"));
-        setContent(new CheckBox(".Mac"));
+        verticalLayout.addComponent(new CheckBox("Gmail"));
+        verticalLayout.addComponent(new CheckBox(".Mac"));
         Button close = new Button("OK");
-        setContent(close);
+        verticalLayout.addComponent(close);
+        setContent(verticalLayout);
     }
 
 }
