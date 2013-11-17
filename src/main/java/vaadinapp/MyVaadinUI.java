@@ -11,6 +11,7 @@ import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
+import container.PersonContainer;
 import ui.HelpWindow;
 import ui.ListView;
 import ui.NavigationTree;
@@ -35,6 +36,7 @@ public class MyVaadinUI extends UI {
     private PersonForm personForm;
     private Window helpView;
     private Window sharingOptions;
+    private PersonContainer dataSource = PersonContainer.createWithTestData();
 
     @WebServlet(value = "/*", asyncSupported = true)
     @VaadinServletConfiguration(productionMode = false, ui = MyVaadinUI.class, widgetset = "vaadinapp.AppWidgetSet")
@@ -82,7 +84,7 @@ public class MyVaadinUI extends UI {
 
     public Component getListView() {
         if (listView == null) {
-            personList = new PersonList();
+            personList = new PersonList(this);
             personForm = new PersonForm();
             listView = new ListView(personList, personForm);
         }
@@ -101,5 +103,9 @@ public class MyVaadinUI extends UI {
             sharingOptions = new SharingOptions();
         }
         return sharingOptions;
+    }
+
+    public PersonContainer getDataSource() {
+        return dataSource;
     }
 }

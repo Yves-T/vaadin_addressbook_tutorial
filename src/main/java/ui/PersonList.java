@@ -1,6 +1,7 @@
 package ui;
 
 import com.vaadin.ui.Table;
+import vaadinapp.MyVaadinUI;
 
 /**
  * User: Yves-T
@@ -8,12 +9,9 @@ import com.vaadin.ui.Table;
  * Time: 07:40
  */
 public class PersonList extends Table {
-    public PersonList() {
-        // create some dummy data
-        addContainerProperty("First Name", String.class, "Mark");
-        addContainerProperty("Last Name", String.class, "Smith");
-        addItem();
-        addItem();
+    public PersonList(MyVaadinUI app) {
         setSizeFull();
+        // set datasource
+        setContainerDataSource(app.getDataSource());
     }
 }
