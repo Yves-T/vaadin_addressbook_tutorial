@@ -17,6 +17,7 @@ import ui.ListView;
 import ui.NavigationTree;
 import ui.PersonForm;
 import ui.PersonList;
+import ui.SearchView;
 import ui.SharingOptions;
 
 import javax.servlet.annotation.WebServlet;
@@ -37,6 +38,7 @@ public class MyVaadinUI extends UI {
     private Window helpView;
     private Window sharingOptions;
     private PersonContainer dataSource = PersonContainer.createWithTestData();
+    private SearchView searchView;
 
     @WebServlet(value = "/*", asyncSupported = true)
     @VaadinServletConfiguration(productionMode = false, ui = MyVaadinUI.class, widgetset = "vaadinapp.AppWidgetSet")
@@ -71,6 +73,7 @@ public class MyVaadinUI extends UI {
     private HorizontalLayout createToolbar() {
         HorizontalLayout horizontalLayout = new HorizontalLayout();
         horizontalLayout.addComponent(newContact);
+        search.addClickListener(searchButtonListener);
         horizontalLayout.addComponent(search);
         horizontalLayout.addComponent(share);
         horizontalLayout.addComponent(help);
@@ -108,4 +111,28 @@ public class MyVaadinUI extends UI {
     public PersonContainer getDataSource() {
         return dataSource;
     }
+
+    public SearchView getSearchView() {
+        if (searchView == null) {
+            searchView = new SearchView(this);
+        }
+        return searchView;
+    }
+
+    // listeners
+
+    Button.ClickListener searchButtonListener = new Button.ClickListener() {
+
+        @Override
+        public void buttonClick(Button.ClickEvent event) {
+            final Button source = event.getButton();
+            if (source == search) {
+                showSearchView();
+            }
+        }
+
+        private void showSearchView() {
+            setMainComponent(getSearchView());
+        }
+    };
 }
